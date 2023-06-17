@@ -20,7 +20,7 @@
     <div class="weDo">
         <h4><br>What We Do</h4>
         <li> Tendance</li>
-        <li>gaming store clavier </li>
+        <li><a href="gallery.php">gaming keyboard</a> </li>
         <li>gaming store souris</li>
         <li>gaming store manettes </li>
         <li>gaming store tablets</li>
@@ -46,6 +46,6 @@
 <!-- </footer> -->
 <div class="lastText">
     <p>
-        Copyright © 2022 by outman.ouharri && nezha.lemnissir
+        Copyright © 2023 by Team 2
     </p>
 </div>

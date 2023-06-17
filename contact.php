@@ -31,12 +31,76 @@ $_SESSION['page'] = 'contact';
 </head>
 
 <body>
+    <style>
+        
+        .hero {
+            display: flex;
+            flex-direction: row;
+        }
+        #form-login{
+        margin: 184px 200px;
+        width: 24%;
+    }       
+        #form-login p {
+            font-size: 38px;
+            font-weight: bold;
+            margin: 10px;
+        }
+
+#form-login .form-group{
+    padding: 13px;
+}
+.form-input {
+    width: 336px;
+    padding: 30px;
+    height: 50px;
+    border-radius: 10px;
+}
+.submit .btn{
+    margin: 10px;
+    padding: 15px 144px;
+
+}
+.img{
+    margin-top: 60px;
+    height: 77%;
+    width: 100%;
+    filter: drop-shadow(1px 3px 100px rgba(218, 209, 209, 0.4));
+}
+    </style>
     <!-- header (nav bar) -->
     <?php
     include_once "./component/header.php"
     ?>
 
+<section class="heo" id="intro">
 
+        <div class="hero">
+
+            <form action="" id="form-login">
+                <p class="contact">Contact us</p>
+                <div class="form-group">
+                    <label for="fullname">Full Name</label><br>
+                    <input type="text" id="fullname" class="form-input" placeholder="What's your full name?">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email address</label><br>
+                    <input type="email" id="email" class="form-input" placeholder="You@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="mess"> Message</label><br>
+                    <input type="text" id="mess" class="form-input form-mess" placeholder="Write your message for the team">
+                </div>
+                <div class="submit">
+                    <a class="btn btn-primary" href="#" role="button">Submit</a>
+
+                </div>
+            </form>
+            <div class="img">
+                <img src="image/home-img/4.png" alt="">
+            </div>
+            </main>
+    </section>
 
     <?php
     include_once "./component/footer.php"

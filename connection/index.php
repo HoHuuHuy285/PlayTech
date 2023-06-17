@@ -17,8 +17,9 @@
 		<label>User Name</label>
 		<input type="password" name="password" placeholder="Password"><br>
 		<button type="submit">Login</button>
-		<a href="../index.php">mode invité</a
+		<a href="../index.php">Back Page</a>
 	</form>
+
 </body>
 
 </html>
