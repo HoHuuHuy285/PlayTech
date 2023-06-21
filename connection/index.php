@@ -17,9 +17,8 @@
 		<label>User Name</label>
 		<input type="password" name="password" placeholder="Password"><br>
 		<button type="submit">Login</button>
-		<a href="../index.php">Back Page</a>
+		<a href="../index.php">Chế Độ Khách</a>
 	</form>
-
 </body>
 
 </html>

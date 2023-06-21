@@ -1,9 +1,3 @@
-<?php
-
-
-session_start();
-$_SESSION['page'] = 'gallery';
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,10 +13,14 @@ $_SESSION['page'] = 'gallery';
     <!-- google font  link-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:ital,wght@0,100;0,200;0,300;1,300;1,400;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:ital,wght@0,100;0,200;0,300;1,300;1,400;1,800;1,900&display=swap"
+        rel="stylesheet">
 
     <!-- font awesome link "icone" -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
     <!-- boxicon link -->
@@ -32,168 +30,155 @@ $_SESSION['page'] = 'gallery';
 </head>
 
 <body>
-<style>
-
-
-        h1 {
-            text-align: center;
-        }
-
-        ul.list-product {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            text-align: center;
-            /*  làm cho xuống hàng */
-            flex-wrap: wrap;
-            justify-content: space-between;
-            position: relative;
-        }
-
-        ul.list-product li {
-            flex-basis: 33.33%;
-            padding-left: 15px;
-            padding-right: 15px;
-            margin-bottom: 30px;
-        }
-
-        ul.list-product .product-item {
-            border: 1px solid #333;
-        }
-
-
-        .price {
-            color: orange;
-            margin-bottom: 10px;
-            font-size: 20px;
-
-        }
-
-        .product-name {
-            text-decoration: none;
-        }
-
-        .buy-now {
-            display: flex;
-            flex-direction: column;
-            color: red;
-            margin-bottom: 10px;
-            text-decoration: none;
-        }
-        #wrapper p{
-            padding: 80px;
-            font-size:38px;
-            font-weight:bold;
-
-        }
-        .product-item img{
-            height: 300px;
-    width: 473px;
-    transition: all 1.2s ease-out 0s;
-        }
-        .product-item img:hover{
-            transform: scale(0.8,0.8);
-    transition: all 1.2s ease-out 0s;
-        }
-
-    </style> 
-    <!-- header (nav bar) -->
     <?php
-    include_once "./component/header.php"
+    session_start();
+    $_SESSION['page'] = 'gallery';
+    require_once('./inc/config.php');
+    require_once('./inc/helpers.php');
+
+    $sql = "SELECT p.*,pdi.img,categorie.LoaiSp from products p
+                    INNER JOIN product_images pdi ON pdi.product_id = p.id
+                    INNER JOIN categorie ON categorie.id_categorie = p.id_categorie
+                    WHERE pdi.is_featured = 1";
+    $handle = $db->prepare($sql);
+    $handle->execute();
+    $getAllProducts = $handle->fetchAll(PDO::FETCH_ASSOC);
+
+    $pageTitle = 'Cool T-Shirt Shop';
+    $metaDesc = 'Demo PHP shopping cart get products from database';
+    include('layouts/header.php');
     ?>
+    <div class="categorie-gallery">
+        <?php
+        // récupération de l'id de produit a partire de lien
+        $id = $_GET['id'];
+        error_log("------------------------------------------------------------------");
+        //https://supportindeed.com/phpMyAdmin/signon.php?action=logout
+        $servername = "localhost";
+        $username = "root";
+        $database = "tshirt_cart";
+        $password = "";
+
+        // create a connection
+        
+        $conn = new mysqli(
+            $servername,
+            $username,
+            $password,
+            $database
+        );
 
 
-    <div id="wrapper">
-        <p>Keyboard</p>
-        <ul class="list-product">
-            
-            <li>
-                <div class="product-item">
-                    <a href="">
-                        <img src="image/gallery-img/image-22@2x.png" alt="" >
+        // requette pour afficher la liste des CATEGORIE
+        $sql = "SELECT * FROM categorie";
+        $req = $conn->query($sql);
+        if (mysqli_num_rows($req) == 0) {
+            // 
+        } else {
+            ?>
+            <div class="cat_box <?php if ($id == 0)
+                echo 'active' ?>" style="justify-content: center;">
+                    <a href="?id=0">
+                        <h6>All</h6>
                     </a>
-                    <div class="price">499.000</div>
-                    <a href="" class="product-name">Lorem ipsum dolor sit amet.</a>
-                    <a href="" class="buy-now">Mua ngay</a>
-                    
                 </div>
-
-            </li>
-            <li>
-                <div class="product-item">
-                    <div class="product-item">
-                        <a href="">
-                        <img src="image/gallery-img/img-2.png" alt="" >
-                        </a>
-                        <div class="price">499.000</div>
-                        <a href="" class="product-name">Lorem ipsum dolor sit amet.</a>
-                        <a href="" class="buy-now">Mua ngay</a>
-
-
-                    </div>
-
-            </li>
-            <li>
-                <div class="product-item">
-                    <div class="product-item">
-                        <a href="">
-                        <img src="image/gallery-img/img-3.png" alt="" >
-                        </a>
-                        <div class="price">499.000</div>
-                        <a href="" class="product-name">Lorem ipsum dolor sit amet.</a>
-                        <a href="" class="buy-now">Mua ngay</a>
-
-                    </div>
-
-            </li>
-            <li>
-                <div class="product-item">
-                    <div class="product-item">
-                        <a href="">
-                        <img src="image/gallery-img/img-4.png" alt="" >
-                        </a>
-                        <div class="price">499.000</div>
-                        <a href="" class="product-name">Lorem ipsum dolor sit amet.</a>
-                        <a href="" class="buy-now">Mua ngay</a>
-                        
-
-                    </div>
-
-            </li>
-            <li>
-                <div class="product-item">
-                    <div class="product-item">
-                        <a href="">
-                        <img src="image/gallery-img/image-24@2x.png" alt="" >
-                        </a>
-                        <div class="price">499.000</div>
-                        <a href="" class="product-name">Lorem ipsum dolor sit amet.</a>
-                        <a href="" class="buy-now">Mua ngay</a>
-
-
-                    </div>
-
-            </li>
-            <li>
-                <div class="product-item">
-                    <div class="product-item">
-                    <img src="image/gallery-img/image-22@2x.png" alt="" >
-                        </a>
-                        <div class="price">499.000</div>
-                        <a href="" class="product-name">Lorem ipsum dolor sit amet.</a>
-                        <a href="" class="buy-now">Mua ngay</a>
-
-                    </div>
-
-            </li>
-        </ul>
+                <?php
+            while ($row = mysqli_fetch_assoc($req)) {
+                ?>
+                <div class="cat_box <?php if ($id == $row['id_categorie'])
+                    echo 'active' ?>" style="justify-content: center;">
+                        <a class="cat_type" href="?id=<?= $row['id_categorie'] ?>">
+                        <?= $row['Icon'] ?>
+                        <h6>
+                            <?= $row['LoaiSp'] ?>
+                        </h6>
+                    </a>
+                </div>
+                <?php
+            }
+        }
+        ?>
     </div>
-    
+
     <?php
-    include_once "./component/footer.php";
+    if ($id != 0) {
+        $sql = "SELECT * FROM products WHERE products.id_categorie = $id;";
+        $req = $conn->query($sql);
+        $sql = "SELECT * FROM categorie WHERE id_categorie = $id;";
+        $reQ = $conn->query($sql);
+        if (mysqli_num_rows($reQ) == 0) {
+            // 
+        } else {
+            $row = mysqli_fetch_assoc($reQ);
+            ?>
+            <div class="mainText" id="platType">
+                <div class="add_prod">
+                    <h2>
+                        <?= $row['LoaiSp'] ?>
+                    </h2>
+                </div>
+                <p>
+                    <?= $row['MoTa'] ?>
+                </p>
+            </div>
+            <div class="row">
+                <?php
+        }
+    } else {
+        $sql = "SELECT * FROM products";
+        $req = $conn->query($sql);
+        ?>
+            <div class="mainText" id="platType">
+                <div class="add_prod">
+                    <h2>Sản Phẩm Của Chúng Tôi</h2>
+                </div>
+                <p>Bạn sẽ tìm thấy mọi thứ tại đây !</p>
+            </div>
+            <div class="row">
+            <?php
+    }
+    if (mysqli_num_rows($req) == 0) {
+        // 
+    } else {
+                foreach ($req as $product) {
+                    $imgUrl = PRODUCT_IMG_URL . str_replace(' ', '-', strtolower($product['product_name'])) . "/" . $product['img'];
+                    ?>
+                    <div class="col-md-3 mt-2">
+                        <div class="card">
+                            <a href="single-product.php?product=<?php echo $product['id'] ?>">
+                                <img class="card-img-top" src="<?php echo $imgUrl ?>"
+                                    alt="<?php echo $product['product_name'] ?>">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="single-product.php?product=<?php echo $product['id'] ?>">
+                                        <?php echo $product['product_name']; ?>
+                                    </a>
+                                </h5>
+                                <strong>$
+                                    <?php echo $product['price'] ?>
+                                </strong>
 
-    include_once "./component/script.php";
+                                <p class="card-t">
+                                    <?php echo substr($product['short_description'], 0, 50) ?>'...
+                                </p>
+                                <p class="card-text">
+                                    <a href="single-product.php?product=<?php echo $product['id'] ?>"
+                                        class="btn btn-primary btn-sm">
+                                        View
+                                    </a>
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+    }
+
     ?>
+    </div>
+    </div>
+    </div>
+    <?php include('layouts/footer.php'); ?>
 </body>
-
-</html>

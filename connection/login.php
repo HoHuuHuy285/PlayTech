@@ -20,7 +20,7 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 		header("Location: index.php?error=Password is required");
 		exit();
 	} else {
-		$sql = "SELECT * FROM `users` WHERE mail_client ='$uname' AND pasword_client ='$pass'";
+		$sql = "SELECT * FROM `users` WHERE mail='$uname' AND password='$pass'";
 		// echo $sql;
 		// die();
 		$result = $conn->query($sql);
@@ -28,9 +28,9 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 		// die();
 		if (mysqli_num_rows($result) === 1) {
 			$row = mysqli_fetch_assoc($result);
-			if ($row['mail_client'] === $uname && $row['pasword_client'] === $pass) {
-				$_SESSION['mail_client'] = $row['mail_client'];
-				$_SESSION['name'] = $row['nom_client'];
+			if ($row['mail'] === $uname && $row['password'] === $pass) {
+				$_SESSION['mail'] = $row['mail'];
+				$_SESSION['name'] = $row['first_name'];
 				$_SESSION['id'] = $row['id_user'];
 				$_SESSION['admin'] = $row['is_admin'];
 				header("Location: ../index.php");
