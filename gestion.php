@@ -39,7 +39,6 @@ if (isset($_SESSION['name']) && $_SESSION['admin'] == 1) {
             integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
         <!-- boxicon link -->
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -101,7 +100,10 @@ if (isset($_SESSION['name']) && $_SESSION['admin'] == 1) {
             $conn->query("SET SESSION collation_connection = 'utf8mb4_unicode_ci'");
 
             // 2. Chuẩn bị câu truy vấn $sql
-            $sql = "select * from `products` INNER JOIN categorie  ON categorie.id_categorie = products.id_categorie ";
+            $sql = "SELECT products.id, products.product_name,categorie.LoaiSp, short_description, price, COUNT(order_details.id) AS Soluong
+            FROM  products LEFT JOIN order_details ON products.product_name = order_details.product_name 
+                                JOIN categorie ON products.id_categorie = categorie.id_categorie
+            GROUP BY product_name;";
 
             // 3. Thực thi câu truy vấn SQL để lấy về dữ liệu
             $result = mysqli_query($conn, $sql);
@@ -120,8 +122,7 @@ if (isset($_SESSION['name']) && $_SESSION['admin'] == 1) {
                     'LoaiSp' => $row['LoaiSp'],
                     'short_description' => $row['short_description'],
                     'price' => $row['price'],
-                    'created_at' => $row['created_at'],
-                    'updated_at' => $row['updated_at'],
+                    'Soluong' => $row['Soluong'],
                 );
                 $rowNum++;
             }
@@ -138,12 +139,12 @@ if (isset($_SESSION['name']) && $_SESSION['admin'] == 1) {
                         <thead class="thead-dark">
                             <tr>
                                 <th>STT</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Loại Sản Phẩm</th>
-                                <th>Ghi chú</th>
-                                <th>Giá</th>
-                                <th>Ngày tạo mới</th>
-                                <th>Ngày cập nhật</th>
+                                <th>Id Product</th>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Sold</th>
                                 <th>###</th>
                             </tr>
                         </thead>
@@ -152,6 +153,9 @@ if (isset($_SESSION['name']) && $_SESSION['admin'] == 1) {
                                 <tr>
                                     <td>
                                         <?php echo $row['rowNum']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['id']; ?>
                                     </td>
                                     <td>
                                         <?php echo $row['product_name']; ?>
@@ -166,10 +170,7 @@ if (isset($_SESSION['name']) && $_SESSION['admin'] == 1) {
                                         <?php echo $row['price']; ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['created_at']; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row['updated_at']; ?>
+                                        <?php echo $row['Soluong']; ?>
                                     </td>
                                     <td>
                                         <!-- Button Sửa -->

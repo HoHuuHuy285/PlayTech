@@ -76,13 +76,6 @@ if (isset($_SESSION['name']) && $_SESSION['admin'] == 1) {
 
             <!-- Block content -->
             <?php
-            // Hiển thị tất cả lỗi trong PHP
-            // Chỉ nên hiển thị lỗi khi đang trong môi trường Phát triển (Development)
-            // Không nên hiển thị lỗi trên môi trường Triển khai (Production)
-            ini_set('display_errors', 1);
-            ini_set('display_startup_errors', 1);
-            error_reporting(E_ALL);
-
             // Truy vấn database để lấy danh sách
             // 1. Include file cấu hình kết nối đến database, khởi tạo kết nối $conn
             $servername = "localhost";
@@ -90,25 +83,17 @@ if (isset($_SESSION['name']) && $_SESSION['admin'] == 1) {
             $database = "tshirt_cart";
             $password = "";
 
-            // create a connection
-        
+
             $conn = new mysqli(
                 $servername,
                 $username,
                 $password,
                 $database
             );
-
-            // 2. Chuẩn bị câu truy vấn $sql
-            // Sử dụng HEREDOC của PHP để tạo câu truy vấn SQL với dạng dễ đọc, thân thiện với việc bảo trì code
             $sql = "SELECT * FROM orders";
 
-            // 3. Thực thi câu truy vấn SQL để lấy về dữ liệu
             $result = mysqli_query($conn, $sql);
 
-            // 4. Khi thực thi các truy vấn dạng SELECT, dữ liệu lấy về cần phải phân tích để sử dụng
-            // Thông thường, chúng ta sẽ sử dụng vòng lặp while để duyệt danh sách các dòng dữ liệu được SELECT
-            // Ta sẽ tạo 1 mảng array để chứa các dữ liệu được trả về
             $data = [];
             while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                 $data[] = array(
@@ -120,6 +105,7 @@ if (isset($_SESSION['name']) && $_SESSION['admin'] == 1) {
                     'first_name' => $row['first_name'],
                     'last_name' => $row['last_name'],
                     'email' => $row['email'],
+                    'code' => $row['zipcode'],
                     'total_price' => number_format($row['total_price'], 2, ".", ",") . ' $',
                 );
             }
@@ -128,13 +114,12 @@ if (isset($_SESSION['name']) && $_SESSION['admin'] == 1) {
                 <thead class="thead-dark">
                     <tr>
                         <th style='width: 10px'>ID</th>
-                        <th>Khách hàng</th>
-                        <th>Ngày lập</th>
-                        <th>Ngày giao</th>
-                        <th>Nơi giao</th>
-                        <th>Sản Phẩm</th>
-                        <th>Tổng thành tiền</th>
-                        <th>Trạng thái thanh toán</th>
+                        <th>Customer</th>
+                        <th>Order date</th>
+                        <th>Buyer's City</th>
+                        <th>Zip Code</th>
+                        <th>Total</th>
+                        <th>Payment Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -153,22 +138,19 @@ if (isset($_SESSION['name']) && $_SESSION['admin'] == 1) {
                                 <?= $dondathang['created_at'] ?>
                             </td>
                             <td>
-                                <?= $dondathang['updated_at'] ?>
-                            </td>
-                            <td>
                                 <?= $dondathang['state'] ?>
                             </td>
                             <td><span class="badge badge-primary">
-                                    <?= $dondathang['last_name'] ?>
+                                    <?= $dondathang['code'] ?>
                                 </span></td>
                             <td>
                                 <?= $dondathang['total_price'] ?>
                             </td>
                             <td>
                                 <?php if ($dondathang['order_status'] != 'confirmed'): ?>
-                                    <span class="badge badge-danger">Chưa xử lý</span>
+                                    <span class="badge badge-danger">Unprocessed</span>
                                 <?php else: ?>
-                                    <span class="badge badge-success">Đã giao hàng</span>
+                                    <span class="badge badge-success">Delivered</span>
                                 <?php endif; ?>
                             </td>
                         </tr>
