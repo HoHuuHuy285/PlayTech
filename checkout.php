@@ -1,28 +1,28 @@
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- style css link  -->
-    <title>PlayTech - Shop</title>
+  <!-- style css link  -->
+  <title>PlayTech - Shop</title>
 
-    <!-- google font  link-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:ital,wght@0,100;0,200;0,300;1,300;1,400;1,800;1,900&display=swap"
-        rel="stylesheet">
+  <!-- google font  link-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:ital,wght@0,100;0,200;0,300;1,300;1,400;1,800;1,900&display=swap"
+    rel="stylesheet">
 
-    <!-- font awesome link "icone" -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- font awesome link "icone" -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
-    <!-- boxicon link -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <!-- meta data include -->
-
+  <!-- boxicon link -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <!-- meta data include -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </head>
 <?php
 session_start();
@@ -263,14 +263,12 @@ include('layouts/header.php');
           <label for="country">Country</label>
           <select class="custom-select d-block w-100" name="country" id="country">
             <option value="">Choose...</option>
-            <option value="United States">United States</option>
           </select>
         </div>
         <div class="col-md-4 mb-3">
           <label for="state">State</label>
           <select class="custom-select d-block w-100" name="state" id="state">
             <option value="">Choose...</option>
-            <option value="California">California</option>
           </select>
         </div>
         <div class="col-md-3 mb-3">
@@ -298,3 +296,40 @@ include('layouts/header.php');
 </div>
 </div>
 <?php include('layouts/footer.php'); ?>
+
+</script>
+<script>
+  var citis = document.getElementById("country");
+  var districts = document.getElementById("state");
+  var Parameter = {
+    url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+    method: "GET",
+    responseType: "application/json",
+  };
+  var promise = axios(Parameter);
+  promise.then(function (result) {
+    renderCity(result.data);
+  });
+
+  function renderCity(data) {
+    for (const x of data) {
+      citis.options[citis.options.length] = new Option(x.Name, x.Name);
+    }
+    citis.onchange = function () {
+      state.length = 1;
+
+      if (this.value != "") {
+        const result = data.filter(n => n.Name === this.value);
+
+        for (const k of result[0].Districts) {
+          state.options[state.options.length] = new Option(k.Name, k.Name);
+        }
+      }
+    };
+    state.onchange = function () {
+      const dataCity = data.filter((n) => n.Name === citis.value);
+      if (this.value != "") {
+      }
+    };
+  }
+</script>
