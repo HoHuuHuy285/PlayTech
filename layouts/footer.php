@@ -21,26 +21,24 @@
         </a>
         <h6>
             <br>
-            Pour acheter vos cartes cadeau ou jeux, vous avez la possibilité de payer avec plusieurs moyens de paiement, par virement bancaire chez plusieurs banques ou par transfert d'argent.
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate consectetur, sequi officia eos ducimus ipsum soluta? Consequatur est delectus veritatis, ad amet tempora, natus numquam quaerat, in consectetur voluptates aliquid.
         </h6>
     </div>
     <div class="weDo">
         <h4><br>What We Do</h4>
-        <li> Tendance</li>
-        <li>gaming store clavier </li>
-        <li>gaming store souris</li>
-        <li>gaming store manettes </li>
-        <li>gaming store tablets</li>
-        <li>gaming store pc</li>
+        <li> All product</li>
+        <li>Mouse </li>
+        <li>Keyboard</li>
+        <li>Gamepad </li>
+        <li>Headphone</li>
     </div>
     <div class="Ser">
         <h4><br>Service</h4>
-        <li>card cadeau</li>
-        <li>livraison</li>
-        <li>montions</li>
-        <li>newsletter</li>
-        <li> cadeaux</li>
-        <li>offres</li>
+        <li>Learn about installment purchase</li>
+        <li>General policies and regulations</li>
+        <li>Warranty Policy</li>
+        <li>Exchange policy</li>
+        <li>Confidentiality of customer information</li>
     </div>
     <div class="Con">
         <h4><br>Contact</h4>
@@ -53,6 +51,6 @@
 <!-- </footer> -->
 <div class="lastText">
     <p>
-        Copyright © 2022 by outman.ouharri && nezha.lemnissir
+        Copyright © 2023 by Team 3
     </p>
 </div>
