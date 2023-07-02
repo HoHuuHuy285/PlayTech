@@ -1,3 +1,18 @@
+<?php 
+    session_start();
+    require_once('./inc/config.php');    
+    require_once('./inc/helpers.php');  
+
+    if(isset($_GET['action'],$_GET['item']) && $_GET['action'] == 'remove')
+    {
+        unset($_SESSION['cart_items'][$_GET['item']]);
+        header('location:cart.php');
+        exit();
+    }
+
+	
+    include('layouts/header.php');
+    ?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,31 +33,24 @@
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
+    <!-- CDN: https://cdnjs.com/libraries/jqueryui -->
+    <!-- jquery UI  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"
+        integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- jquery UI CSS  -->    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css"
+        integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- boxicon link -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- meta data include -->
-
+    <script src="./assets/js/cart.js"></script>
 </head>
-<?php 
-    session_start();
-    require_once('./inc/config.php');    
-    require_once('./inc/helpers.php');  
-
-    if(isset($_GET['action'],$_GET['item']) && $_GET['action'] == 'remove')
-    {
-        unset($_SESSION['cart_items'][$_GET['item']]);
-        header('location:cart.php');
-        exit();
-    }
-	
-	$pageTitle = 'Demo PHP Shopping cart - Add to cart using Session';
-	$metaDesc = 'Demo PHP Shopping cart - Add to cart using Session';
-	
-    include('layouts/header.php');
-
-    //pre($_SESSION);
-?>
 <br>
 <br>
 <br>

@@ -78,18 +78,11 @@ if (isset($_SESSION['name']) && $_SESSION['admin'] == 1) {
             <?php
             // Truy vấn database để lấy danh sách
             // 1. Include file cấu hình kết nối đến database, khởi tạo kết nối $conn
-            $servername = "localhost";
-            $username = "root";
-            $database = "tshirt_cart";
-            $password = "";
+            include "./style/admin/connection.php";
 
-
-            $conn = new mysqli(
-                $servername,
-                $username,
-                $password,
-                $database
-            );
+            $conn->query("SET NAMES 'utf8mb4'");
+            $conn->query("SET CHARACTER SET utf8mb4");
+            $conn->query("SET SESSION collation_connection = 'utf8mb4_unicode_ci'");
             $sql = "SELECT * FROM orders";
 
             $result = mysqli_query($conn, $sql);
@@ -113,7 +106,7 @@ if (isset($_SESSION['name']) && $_SESSION['admin'] == 1) {
             <table id="myTable" class="table table-bordered table-hover table-sm table-responsive mt-2">
                 <thead class="thead-dark">
                     <tr>
-                        <th style='width: 10px'>ID</th>
+                        <th>ID</th>
                         <th>Customer</th>
                         <th>Order date</th>
                         <th>Buyer's City</th>

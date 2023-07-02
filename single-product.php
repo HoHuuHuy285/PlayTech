@@ -1,3 +1,7 @@
+<?php 
+    session_start();
+    $_SESSION['page'] = 'gallery';
+    ?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,8 +29,6 @@
 
 </head>
 <?php 
-    session_start();
-    $_SESSION['page'] = 'gallery';
     require_once('./inc/config.php');    
     require_once('./inc/helpers.php');  
     
@@ -114,11 +116,6 @@
         }
 
     }
-
-
-	$pageTitle = 'Cool T-Shirt Shop Single Product Page';
-	$metaDesc = 'Demo PHP shopping cart get products from database';
-	
 	
 include('layouts/header.php');
 

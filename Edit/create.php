@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop bán hàng NetaShop</title>
 
-    <!-- Liên kết CSS Bootstrap bằng CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
@@ -15,16 +14,16 @@
 
     <!-- Main content -->
     <div class="container">
-        <h1>Form Thêm mới Sản Phẩm </h1>
+        <h1>Form Add New Product</h1>
 
         <form name="frmCreate" method="post" action="" class="form">
             <table class="table">
                 <tr>
-                    <td>Tên Sản Phẩm</td>
+                    <td>Product's name</td>
                     <td><input type="text" name="product_name" id="product_name" class="form-control" /></td>
                 </tr>
                 <tr>
-                    <td>Loại Sản Phẩm</td>
+                    <td>Product Type</td>
                     <td><select name="id_categorie" id="id_categorie"  class="form-control">
                         <?php
                         $servername = "localhost";
@@ -51,14 +50,13 @@
                         }
                         ?>
                     </select></td>
-                    <!-- <td><input type="text" name="supplier_name" id="supplier_name" class="form-control" /></td> -->
                 </tr>
                 <tr>
-                    <td>Ghi chú</td>
+                    <td>Note</td>
                     <td><textarea name="short_description" id="short_description" class="form-control"></textarea></td>
                 </tr>
                 <tr>
-                    <td>Giá Tiền</td>
+                    <td>Price</td>
                     <td><input type="text" name="price" id="price" class="form-control" /></td>
                 </tr>
                 <tr>
@@ -71,107 +69,47 @@
     </div>
 
     <?php
-    // Truy vấn database
-    // 1. Include file cấu hình kết nối đến database, khởi tạo kết nối $conn
-    $servername = "localhost";
-    $username = "root";
-    $database = "tshirt_cart";
-    $password = "";
-
-    // create a connection
-    
-    $conn = new mysqli(
-        $servername,
-        $username,
-        $password,
-        $database
-    );
+include "../style/admin/connection.php";
 
 
-    // 2. Người dùng mới truy cập trang lần đầu tiên (người dùng chưa gởi dữ liệu `btnSave` - chưa nhấn nút Save) về Server
-    // có nghĩa là biến $_POST['btnSave'] chưa được khởi tạo hoặc chưa có giá trị
-    // => hiển thị Form nhập liệu
-    
-    // Nếu biến $_POST['btnSave'] đã được khởi tạo
-    // => Người dùng đã bấm nút "Lưu dữ liệu"
     if (isset($_POST['btnSave'])) {
 
-        // 3. Nếu người dùng có bấm nút `Lưu dữ liệu` thì thực thi câu lệnh INSERT
-        // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
         $product_name = $_POST['product_name'];
         $id_categorie = $_POST['id_categorie'];
         $short_description = $_POST['short_description'];
         $price = $_POST['price'];
-        $created_at = date('Y-m-d H:i:s'); // Lấy ngày giờ hiện tại theo định dạng `Năm-Tháng-Ngày Giờ-Phút-Giây`. Vd: 2020-02-18 09:12:12
+        $created_at = date('Y-m-d H:i:s'); 
         $updated_at = NULL;
 
-        // 4. Kiểm tra ràng buộc dữ liệu (Validation)
-        // Tạo biến lỗi để chứa thông báo lỗi
         $errors = [];
 
-        // --- Kiểm tra Mã nhà cung cấp (validate)
-        // required (bắt buộc nhập <=> không được rỗng)
+
         if (empty($product_name)) {
             $errors['product_name'][] = [
                 'rule' => 'required',
                 'rule_value' => true,
                 'value' => $product_name,
-                'msg' => 'Vui lòng nhập mã Nhà cung cấp'
+                'msg' => 'Please enter product name'
             ];
         }
-        // minlength 3 (tối thiểu 3 ký tự)
         if (!empty($product_name) && strlen($product_name) < 3) {
             $errors['supplier_code'][] = [
                 'rule' => 'minlength',
                 'rule_value' => 3,
                 'value' => $product_name,
-                'msg' => 'Mã Nhà cung cấp phải có ít nhất 3 ký tự'
+                'msg' => 'Product Name must have at least 3 characters'
             ];
         }
-        // maxlength 50 (tối đa 50 ký tự)
         if (!empty($product_name) && strlen($product_name) > 50) {
             $errors['product_name'][] = [
                 'rule' => 'maxlength',
                 'rule_value' => 50,
                 'value' => $product_name,
-                'msg' => 'Mã Nhà cung cấp không được vượt quá 50 ký tự'
+                'msg' => 'Product Name cannot exceed 50 characters'
             ];
         }
 
-        // --- Kiểm tra Tên nhà cung cấp (validate)
-        // required (bắt buộc nhập <=> không được rỗng)
-        if (empty($id_categorie)) {
-            $errors['id_categorie'][] = [
-                'rule' => 'required',
-                'rule_value' => true,
-                'value' => $id_categorie,
-                'msg' => 'Vui lòng nhập mô tả Loại sản phẩm'
-            ];
-        }
-        // minlength 3 (tối thiểu 3 ký tự)
-        if (!empty($id_categorie) && strlen($id_categorie) < 3) {
-            $errors['id_categorie'][] = [
-                'rule' => 'minlength',
-                'rule_value' => 3,
-                'value' => $id_categorie,
-                'msg' => 'Mô tả loại sản phẩm phải có ít nhất 3 ký tự'
-            ];
-        }
-        // maxlength 255 (tối đa 255 ký tự)
-        if (!empty($id_categorie) && strlen($id_categorie) > 255) {
-            $errors['id_categorie'][] = [
-                'rule' => 'maxlength',
-                'rule_value' => 255,
-                'value' => $id_categorie,
-                'msg' => 'Mô tả loại sản phẩm không được vượt quá 255 ký tự'
-            ];
-        }
-
-        // 5. Thông báo lỗi cụ thể người dùng mắc phải (nếu vi phạm bất kỳ quy luật kiểm tra ràng buộc)
-        // dd($errors);
         if (!empty($errors)) {
-            // In ra thông báo lỗi
-            // kèm theo dữ liệu thông báo lỗi
             foreach ($errors as $errorField) {
                 foreach ($errorField as $error) {
                     echo $error['msg'] . '<br />';
@@ -181,42 +119,39 @@
         }
 
         // 6. Nếu không có lỗi dữ liệu sẽ thực thi câu lệnh SQL
-        // Câu lệnh INSERT
+        // INSERT
         $sqlInsert = <<<EOT
         INSERT INTO products (id_categorie, product_name, short_description, price, created_at, updated_at) 
         VALUES ('$id_categorie', '$product_name', '$short_description', '$price', '$created_at', '$updated_at')
 EOT;
 
-        // Code dùng cho DEBUG
-        // var_dump($sqlInsert); die;
     
         // Thực thi INSERT
         mysqli_query($conn, $sqlInsert);
 
-        // Đóng kết nối
+        // Close
         mysqli_close($conn);
 
-        // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
         header('location:../gestion.php');
     }
     ?>
 
-    <!-- Liên kết JS Jquery bằng CDN -->
+    <!-- JS Jquery-->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
 
-    <!-- Liên kết JS Popper bằng CDN -->
+    <!-- JS Popper-->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
 
-    <!-- Liên kết JS Bootstrap bằng CDN -->
+    <!-- JS Bootstrap -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 
-    <!-- Liên kết JS FontAwesome bằng CDN -->
+    <!-- JS FontAwesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
 </body>
 

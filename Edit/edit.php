@@ -6,38 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Product</title>
 
-    <!-- Liên kết CSS Bootstrap bằng CDN -->
+    <!-- CSS Bootstrap  -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 <body>
 
     <?php
-    // Truy vấn database
-    // 1. Include file cấu hình kết nối đến database, khởi tạo kết nối $conn
-    $servername = "localhost";
-    $username = "root";
-    $database = "tshirt_cart";
-    $password = "";
 
-    // create a connection
-
-    $conn = new mysqli($servername,
-                        $username, 
-                        $password, 
-                        $database);
-
-
-    // 2. Chuẩn bị câu truy vấn $sqlSelect, lấy dữ liệu ban đầu của record cần update
-    // Lấy giá trị khóa chính được truyền theo dạng QueryString Parameter key1=value1&key2=value2...
+    include "../style/admin/connection.php";
     $id = $_GET['id'];
     $sqlSelect = "SELECT * FROM `products` WHERE id=$id;";
 
-    // 3. Thực thi câu truy vấn SQL để lấy về dữ liệu ban đầu của record cần update
     $resultSelect = mysqli_query($conn, $sqlSelect);
-    $shop_suppliersRow = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); // 1 record
+    $shop_suppliersRow = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); 
 
-    // Nếu không tìm thấy dữ liệu -> thông báo lỗi
     if(empty($shop_suppliersRow)) {
         echo "Giá trị id: $id không tồn tại. Vui lòng kiểm tra lại.";
         die;
@@ -46,7 +29,7 @@
     
     <!-- Main content -->
     <div class="container">
-        <h1>Form Cập nhật Nhà cung cấp</h1>
+        <h1>Supplier Update Form</h1>
 
         <form name="frmEdit" id="frmEdit" method="post" action="" class="form">
             <table class="table">
@@ -55,22 +38,10 @@
                     <td><input type="text" name="id" id="id" class="form-control" value="<?php echo $shop_suppliersRow['id'] ?>" readonly /></td>
                 </tr>
                 <tr>
-                    <td>Loại Sản Phẩm</td>
+                    <td>Categorie</td>
                     <td><select name="id_categorie" id="id_categorie"  class="form-control">
                         <?php
-                        $servername = "localhost";
-                        $username = "root";
-                        $database = "tshirt_cart";
-                        $password = "";
-
-                        // create a connection
-                        
-                        $conn = new mysqli(
-                            $servername,
-                            $username,
-                            $password,
-                            $database
-                        );
+                        include "./style/admin/connection.php";
 
 
                         $sql = "SELECT * FROM categorie";
@@ -83,15 +54,15 @@
                         ?>
                     </select></td>                </tr>
                 <tr>
-                    <td>Tên nhà cung cấp</td>
+                    <td>Product Name</td>
                     <td><input type="text" name="product_name" id="product_name" class="form-control" value="<?php echo $shop_suppliersRow['product_name'] ?>" /></td>
                 </tr>
                 <tr>
-                    <td>Ghi chú</td>
+                    <td>Note</td>
                     <td><textarea name="short_description" id="short_description" class="form-control" value="<?php echo $shop_suppliersRow['short_description'] ?>" ></textarea></td>
                 </tr>
                 <tr>
-                    <td>Giá Tiền</td>
+                    <td>Price</td>
                     <td><input type="text" name="price" id="price" class="form-control" value="<?php echo $shop_suppliersRow['price'] ?>" /></td>
                 </tr>
                 <tr>

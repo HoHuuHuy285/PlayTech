@@ -1,7 +1,7 @@
 $(function(){
         Swal.fire(
-            'Good job!',
-            'You clicked the button!',
+            'Thank You!',
+            'Your order number is: ',
             'success'
           )
 });

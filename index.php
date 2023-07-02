@@ -43,11 +43,11 @@ $_SESSION['page'] = 'home';
         <main class="home">
             <div class="home-text">
                 <h1>GAMING <br>STORE</h1>
-                <h5>Lorem ipsum dolor sit amet.</h5>
+                <h5>Safety - Quality - Prestige</h5>
                 <a href="./gallery.php?id=0" class="home-btn">Shop Now</a>
             </div>
             <div class="home-img">
-                <img src="./assets/product-images/4.png" alt="">
+                <img src="./assets/product-images/6.png" alt="">
             </div>
         </main>
     </section>
@@ -56,7 +56,7 @@ $_SESSION['page'] = 'home';
     <section id="feature">
         <div class="fe-box">
             <img src="./assets/product-images/feature/free-shipping.png" alt="image">
-            <h6>free shipping</h6>
+            <h6>Free Shipping</h6>
         </div>
         <div class="fe-box">
             <img src="./assets/product-images/feature/24-7.png" alt="image">
@@ -64,7 +64,7 @@ $_SESSION['page'] = 'home';
         </div>
         <div class="fe-box">
             <img src="./assets/product-images/feature/save-money.png" alt="image">
-            <h6>Save money</h6>
+            <h6>Save Money</h6>
         </div>
         <div class="fe-box">
             <img src="./assets/product-images/feature/mobile-order.png" alt="image">
@@ -72,7 +72,7 @@ $_SESSION['page'] = 'home';
         </div>
         <div class="fe-box">
             <img src="./assets/product-images/feature/promotions.png" alt="image">
-            <h6>promotions</h6>
+            <h6>Promotions</h6>
         </div>
         <div class="fe-box">
             <img src="./assets/product-images/feature/happy.png" alt="image">
@@ -81,12 +81,13 @@ $_SESSION['page'] = 'home';
     </section>
 
     <div class="mainToContact">
-        <div class="manadger">
-            <img src="./assets/product-images/manadger.png" alt="">
-        </div>
+
         <div class="blabla">
-            <h2>Lorem ipsum dolor sit amet consectetur.</h2>
-            <a href="./contact.PHP"><button>Contact</button></a>
+            <h2>Listen to customers to understand yourself better.</h2>
+            <a href="./contact.PHP"><button>contact</button></a>
+        </div>
+        <div class="manadger">
+            <img src="./assets/product-images/Ran.png" alt="">
         </div>
     </div>
 

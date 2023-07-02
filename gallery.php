@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +10,7 @@
 
     <!-- style css link  -->
     <link rel="stylesheet" href="./style/style.css?v=<?php echo time(); ?>">
-    <title>PlayTech - Shop</title>
+    <title>Shop</title>
 
     <!-- google font  link-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,8 +46,6 @@
     $handle->execute();
     $getAllProducts = $handle->fetchAll(PDO::FETCH_ASSOC);
 
-    $pageTitle = 'Cool T-Shirt Shop';
-    $metaDesc = 'Demo PHP shopping cart get products from database';
     include('layouts/header.php');
     ?>
     <div class="categorie-gallery">
@@ -54,19 +54,7 @@
         $id = $_GET['id'];
         error_log("------------------------------------------------------------------");
         //https://supportindeed.com/phpMyAdmin/signon.php?action=logout
-        $servername = "localhost";
-        $username = "root";
-        $database = "tshirt_cart";
-        $password = "";
-
-        // create a connection
-        
-        $conn = new mysqli(
-            $servername,
-            $username,
-            $password,
-            $database
-        );
+        include "./style/admin/connection.php";
 
 
         // requette pour afficher la liste des CATEGORIE

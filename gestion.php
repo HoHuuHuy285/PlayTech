@@ -78,19 +78,7 @@ if (isset($_SESSION['name']) && $_SESSION['admin'] == 1) {
             <?php
             // Truy vấn database để lấy danh sách
             // 1. Include file cấu hình kết nối đến database, khởi tạo kết nối $conn
-            $servername = "localhost";
-            $username = "root";
-            $database = "tshirt_cart";
-            $password = "";
-
-            // create a connection
-        
-            $conn = new mysqli(
-                $servername,
-                $username,
-                $password,
-                $database
-            );
+            include "./style/admin/connection.php";
 
             // Tùy chỉnh kết nối
             // Set charset là utf-8 đối với kết nối này. Dùng để gõ tiếng Việt, Nhật, Thái, Trung Quốc ...
