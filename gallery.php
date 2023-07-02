@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -118,9 +117,9 @@
         ?>
             <div class="mainText" id="platType">
                 <div class="add_prod">
-                    <h2>Sản Phẩm Của Chúng Tôi</h2>
+                    <h2>Our Products</h2>
                 </div>
-                <p>Bạn sẽ tìm thấy mọi thứ tại đây !</p>
+                <p>You will find everything here!</p>
             </div>
             <div class="row">
             <?php

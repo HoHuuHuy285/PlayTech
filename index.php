@@ -84,7 +84,7 @@ $_SESSION['page'] = 'home';
 
         <div class="blabla">
             <h2>Listen to customers to understand yourself better.</h2>
-            <a href="./contact.PHP"><button>contact</button></a>
+            <a href="./contact.php"><button>contact</button></a>
         </div>
         <div class="manadger">
             <img src="./assets/product-images/Ran.png" alt="">
